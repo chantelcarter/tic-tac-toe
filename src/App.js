@@ -4,29 +4,45 @@ import './App.css'
 
 const App = () => {
   const [squares, setSquares] = useState(Array(9).fill(null))
+  const [isPlayerOneTurn, setPlayerOneTurn] = useState(true)
 
 
-  const handleClick = (index) => {
-    if (squares[index] || calculateWinner(squares)) {
+  const handleClick = (id) => {
+
+    if (squares[id] !==null) {
       return
+    } 
+
+    const newSquares = [...squares]
+
+    if (isPlayerOneTurn) {
+      newSquares[id] = '❌'    
+    } else {
+      newSquares[id] = '⭕️'
     }
-    return "❌"
-    // let playerOne = (squares[index]) = "❌"
-    // let playerTwo = "⭕️"
-  
+
+    setSquares(newSquares)
+    setPlayerOneTurn(!isPlayerOneTurn)
+  }
+
+  let playerTurnText
+  if (isPlayerOneTurn) {
+    playerTurnText = "Player 1's Turn (❌)"
+  } else {
+    playerTurnText = "Player 2 Turn (⭕️)"
   }
 
   return (
     <>
       <h1>Tic Tac Toe</h1>
-      <Square squares={squares} onClick={() => handleClick(index)} />
+      <div className="squares" >
+        {squares.map((value, index) => (
+          <Square key={index} value={value} onClick={() => handleClick(index)} />
+        ))}
+      </div>
+      <p>{playerTurnText}</p>
     </>
   )
 }
 
 export default App
-
-// Focus on establishing a variable that has to do with the X mark and the O mark so that we can alternate between what needs to happen for the onClick and the handleClick as well as establishing arguments for calculateWinner.
-    // utilizing % (modulo) to figure out which direction for figuring out the winner or the positions for the tictactoe game.
-// handleClick may need an if else conditional tree but it has to be established with some logic for the onClick in square.js to be functional.
-// calculateWinner function needs to be created but only after establishing player 1 & 2 as having X and O marks. 

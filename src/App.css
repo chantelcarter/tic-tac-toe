@@ -1,17 +1,26 @@
-.square {
-  border: 2px solid black;
-  height: 100px;
-  width: 100px;
-}
-
-.grid {
-    display: flex;
-    flex-wrap: wrap;
-    width: 320px;
-    margin: 0 auto;
-    padding: 5px;
-}
-
-h1 {
+h1, .square {
   text-align: center;
+}
+
+.square {
+  height: 200px;
+  width: 200px;
+  border: 1px solid black;
+  font-size: 10rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease; 
+}
+
+.square:hover {
+  background-color: #f0f0f0; 
+}
+
+.squares {
+  display: grid;
+  grid-template-columns: repeat(3, 200px);
+  width: 610px;
+  margin: 0 auto;
 }
