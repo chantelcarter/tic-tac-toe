@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import Square from './components/Square'
 import './App.css'
+
 const calculateWinner = (squares) => {
   const lines = [
     [0, 1, 2],
@@ -40,6 +41,11 @@ const App = () => {
     setSquares(newSquares)
     setPlayerOneTurn(!isPlayerOneTurn)
   }
+  const gameStop = (id) => {
+    if (squares[id] !== null || calculateWinner(squares)) {
+      return;
+    }
+  }
   let playerTurnText
   const winner = calculateWinner(squares)
   if (winner) {
@@ -52,7 +58,7 @@ const App = () => {
 
   const gameOver = () => {
     setSquares(Array(9).fill(null))
-    setPlayerOneTurn(true)
+    setPlayerOneTurn(true) 
   }
 
   return (
@@ -60,7 +66,7 @@ const App = () => {
       <h1>Tic Tac Toe</h1>
       <div className="squares">
         {squares.map((value, index) => (
-          <Square key={index} value={value} onClick={() => handleClick(index)} />
+          <Square key={index} value={value} gameStop={gameStop} onClick={() => handleClick(index)} />
         ))}
       </div>
       <button onClick={gameOver}>Restart Game</button>
@@ -69,10 +75,3 @@ const App = () => {
   )
 }
 export default App
-
-
-
-
-
-
-
